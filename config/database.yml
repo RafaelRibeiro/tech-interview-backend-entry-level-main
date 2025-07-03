@@ -12,12 +12,17 @@
 # Configure Using Gemfile
 # gem "pg"
 #
+
+# Configurações padrão
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql                                   # Banco de dados utilizado
+  encoding: unicode                                     # Codificação padrão dos dados no banco como Unicode (UTF-8)
+  host:     <%= ENV.fetch("DATABASE_HOST") %>           # Host do postgresql salvo no arquivo de Variaveis de Ambiente
+  username: <%= ENV.fetch("DATABASE_USERNAME") %>       # Username do postgresql salvo no arquivo de Variaveis de Ambiente
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>       # Password do postgresql salvo no arquivo de Variaveis de Ambiente
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> # Tamanho da Conexão do banco de dados. obs: Criado variavel com mesmo numero padrão apenas se o usuário futuramente quiser ajustar
+
+# Obs: É preferivel adicionar dados no arquivo .env e manipulando os dados lá.
 
 development:
   <<: *default
