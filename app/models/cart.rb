@@ -41,7 +41,11 @@ class Cart < ApplicationRecord
 
   # Atualização de Status para Abandonado
   def mark_abandoned
-    update(status: 'abandoned') # Atualiza o status de carrinho como abandonado
+
+    # Se a ultima atualização for menor ou igual a 3 horas e esteja Ativo
+    if updated_at <= 3.hours.ago && active?
+      update(status: :abandoned) # Atualiza status abandonar 
+    end
   end
 
   # Verificação se Carrinho deve ser deletado
