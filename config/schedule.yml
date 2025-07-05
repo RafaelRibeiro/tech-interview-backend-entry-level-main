@@ -1,0 +1,4 @@
+mark_cart_as_abandoned_job:
+  cron: "*/30 * * * *" # Executa a cada 30 minutos
+  class: "MarkCartAsAbandonedJob"
+  queue: default
