@@ -1,17 +1,25 @@
-require "rails_helper"
+require "rails_helper" # Carrega o ambiente de teste do Rails
 
-RSpec.describe CartsController, type: :routing do
-  describe 'routes' do
-    it 'routes to #show' do
-      expect(get: '/cart').to route_to('carts#show')
-    end
+# Teste para as rotas do controller CartsController
+RSpec.describe CartsController, type: :routing do 
 
-    it 'routes to #create' do
-      pending "#TODO: Escreva um teste para validar a criação de um carrinho #{__FILE__}" 
-    end
-
-    it 'routes to #add_item via POST' do
-      expect(post: '/cart/add_item').to route_to('carts#add_item')
-    end
+  # Testa se GET /cart vai para o método show
+  it 'routes to #show' do 
+    expect(get: '/cart').to route_to('carts#show') # Espera que GET /cart direcione para carts#show
   end
-end 
+
+  # Testa se POST /cart vai para o método create
+  it 'routes to #create' do 
+    expect(post: '/cart').to route_to('carts#create') # Espera que POST /cart direcione para carts#create
+  end
+
+  # Testa se POST /cart/add_item vai para o método add_item
+  it 'routes to #add_item' do 
+    expect(post: '/cart/add_item').to route_to('carts#add_item') # Espera que POST /cart/add_item direcione para carts#add_item
+  end
+
+  # Testa se DELETE /cart/remove_item vai para o método remove_item
+  it 'routes to #remove_item' do 
+    expect(delete: '/cart/remove_item').to route_to('carts#remove_item') # Espera que DELETE /cart/remove_item direcione para carts#remove_item
+  end
+end
