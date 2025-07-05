@@ -50,7 +50,7 @@ RSpec.describe "/cart", type: :request do
     # Testa se o item é removido corretamente
     it 'remove um item do carrinho' do 
       post '/cart', params: { product_id: product.id, quantity: 1 }  # Cria o carrinho com o item
-      delete '/cart/remove_item', params: { product_id: product.id } # Envia uma requisição DELETE para remover o item
+      delete "/cart/#{product.id}", params: { product_id: product.id } # Envia uma requisição DELETE para remover o item
       expect(response).to have_http_status(:ok)                      # Espera resposta 200 OK
       expect(JSON.parse(response.body)["products"]).to be_empty      # Verifica se a lista de produtos ficou vazia
     end

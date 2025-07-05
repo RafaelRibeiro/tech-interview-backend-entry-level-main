@@ -20,6 +20,6 @@ RSpec.describe CartsController, type: :routing do
 
   # Testa se DELETE /cart/remove_item vai para o método remove_item
   it 'routes to #remove_item' do 
-    expect(delete: '/cart/remove_item').to route_to('carts#remove_item') # Espera que DELETE /cart/remove_item direcione para carts#remove_item
+      expect(delete: '/cart/1').to route_to('carts#remove_item', product_id: '1') # Espera que DELETE /cart/product_id direcione para carts#remove_item
   end
 end

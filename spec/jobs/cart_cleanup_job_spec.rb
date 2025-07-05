@@ -12,12 +12,17 @@ RSpec.describe CartCleanupJob, type: :job do
 
     # Teste verifica carrinhos inativos como abandonados e remove abandonados antigos
     it 'marca carrinhos inativos como abandonados e remove abandonados antigos' do
+      # Executa o job
       expect {
-        described_class.perform_now                                             # Executa o job na imediatamente
-      }.to change { active_cart.reload.status }.from("active").to("abandoned")  # Carrinho ativo mude para abandonado
-       .and change { Cart.exists?(old_abandoned_cart.id) }.from(true).to(false) # Carrinho abandonado antigo seja apagado
-       .and not_change { recent_cart.reload.status }                            # Carrinho recente continue ativo
-       .and not_change { Cart.exists?(recent_abandoned_cart.id) }               # Carrinho abandonado recente continue no banco
+        described_class.perform_now # Executa o job imediatamente.
+      }.to change { active_cart.reload.status }.from("active").to("abandoned")  # Espera que o status do carrinho ativo mude de "active" para "abandoned".
+       .and change { Cart.exists?(old_abandoned_cart.id) }.from(true).to(false) # Espera que o carrinho abandonado antigo seja removido do banco.
+
+      # Verifica que o carrinho recente ainda está ativo
+      expect(recent_cart.reload.status).to eq("active")
+
+      # Verifica que o carrinho abandonado recente ainda existe
+      expect(Cart.exists?(recent_abandoned_cart.id)).to eq(true)
     end
   end
 end
